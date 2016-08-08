@@ -1,6 +1,6 @@
 function [ m_mle ] = MLEupdate( T, m )
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+% This function computes the MLE correction to the Trifocal Tensor 
+%   Algorithm can be found in section B from https://www.robots.ox.ac.uk/~vgg/publications/1997/Torr97a/torr97a.pdf
     
     J = zeros(4,3);
     J(1,1) = T(1,1,1)-T(1,1,3)*m.a3(1)-T(1,3,1)*m.a2(1)+T(1,3,3)*m.a2(1)*m.a3(1);

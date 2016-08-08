@@ -55,6 +55,9 @@ function [Tfinal, matcheper, m, m1 ] = RANSACTrifocal( vpts1, vpts2, vpts3, matc
         w5 = int16(1);
         w6 = int16(1);
         
+	    % These conditions ensure that a poor choice of points are not selected
+		% to compute the Trifocal Tensor. The check is based on the condition
+		% number of the matrices involved in computing the trifocal tensor	
         if(rcond(lamb1) < 0.0000001 || isnan(rcond(lamb1)))
             w1 = int16(0);
         end;
@@ -73,7 +76,9 @@ function [Tfinal, matcheper, m, m1 ] = RANSACTrifocal( vpts1, vpts2, vpts3, matc
         if(rcond(B3) < 0.0000001 || isnan(rcond(B3)))
             w6 = int16(0);
         end;
-        
+       
+	    % Only if the above conditions are not violated, proceed ahaed.
+		% Otherwise ignore this set of points	
         if(w1 && w2 && w3 && w4 && w5 && w6)
          
             Tri = getTrifocal(m(1), m(2), m(3), m(4), m(5), m(6));
